@@ -94,7 +94,7 @@ export default function Projects() {
                 {project.stack.map((item) => (
                   <span
                     key={item}
-                    className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-100 dark:bg-white/8 text-slate-600 dark:text-white/60"
+                    className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-100 dark:bg-white/8 text-slate-600 dark:text-blue/60"
                   >
                     {item}
                   </span>
