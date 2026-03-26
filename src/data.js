@@ -4,7 +4,7 @@ export const profile = {
   name: "Vinay Ninave",
   title: "Full Stack Developer | Generative AI ",
   intro:
-    "Full Stack Developer building scalable web applications using React.js and Node.js.Focused on Cybersecurity practices to develop secure and resilient systems.Exploring AI-driven solutions to create intelligent, modern applications.",
+    "Full Stack Developer building scalable web applications using React.js and FastAPI. Focused on Cybersecurity practices to develop secure and resilient systems.Exploring AI-driven solutions to create intelligent, modern applications.",
   location: "Nagpur",
   email: "vinayninave27@email.com",
   resumeUrl: "/resume.pdf"
