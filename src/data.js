@@ -36,7 +36,7 @@ export const projects = [
   {
     title: "AI Game Bot For Connect-4",
     description:
-      "A real-time analytics dashboard with role-based access, streaming charts, and alert automation.",
+      "Built an AI Game Bot for Connect-4 that plays against users with smart decision-making.",
     image: "/project1.webp",
     stack: ["React", "TailwindCSS", "Node.js", "Express.js", "Python"],
     github: "https://github.com/ninavevinay/AI_Game_Bot_for_Connect-4",
@@ -53,7 +53,7 @@ export const projects = [
   {
     title: "Firebase Book Management",
     description:
-      "Headless ecommerce storefront with lightning-fast search, headless CMS, and smart upsells.",
+      "Built a Book Management System using Firebase for real-time data storage and user management.",
     image: "/project1.jfif",
     stack: ["React", "TailwindCSS", "Firebase", "CRUD"],
     github: "https://github.com/ninavevinay/firebase_Book_Mananement",
@@ -62,7 +62,7 @@ export const projects = [
   {
     title: "Student Result Management System",
     description:
-      "Collaborative productivity platform with kanban, docs, and AI meeting summaries.",
+      "A comprehensive system for managing and tracking student academic performance.",
     image: "/project.jfif",
     stack: ["HTML", "CSS", "Django"],
     github: "https://github.com/ninavevinay/SRM",
