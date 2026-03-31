@@ -15,14 +15,14 @@ html.dark {
 }
 
 body {
-  background: #73a1cf;
+  background: #f0f4f8;
   text-rendering: optimizeLegibility;
   color: #0f172a;
 }
 
 html.dark body {
   background: #0b0d12;
-  color: #9a8de6;
+  color: #ffffff;
 }
 
 ::selection {
@@ -34,7 +34,7 @@ html.dark body {
   background: radial-gradient(1200px 800px at 20% 10%, rgba(124, 58, 237, 0.12), transparent 60%),
     radial-gradient(900px 700px at 80% 0%, rgba(45, 212, 191, 0.15), transparent 60%),
     radial-gradient(900px 900px at 50% 90%, rgba(244, 63, 94, 0.12), transparent 60%),
-    #78a4cf;
+    #f0f4f8;
 }
 
 html.dark .app-gradient {
