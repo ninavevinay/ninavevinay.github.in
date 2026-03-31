@@ -1,4 +1,4 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -15,23 +15,26 @@ html.dark {
 }
 
 body {
-  background: #eaf3ff;
+  background: #ffffff;
+  text-rendering: optimizeLegibility;
+  color: #0f172a;
 }
 
 html.dark body {
   background: #0b0d12;
+  color: #ffffff;
 }
 
 ::selection {
-  background: rgba(88, 230, 217, 0.35);
-  color: #0b0d12;
+  background: rgba(124, 58, 237, 0.2);
+  color: #0f172a;
 }
 
 .app-gradient {
-  background: radial-gradient(1200px 800px at 20% 10%, rgba(56, 162, 255, 0.22), transparent 60%),
-              radial-gradient(900px 700px at 80% 0%, rgba(100, 202, 255, 0.2), transparent 60%),
-              radial-gradient(900px 900px at 50% 90%, rgba(70, 130, 255, 0.16), transparent 60%),
-              #eaf3ff;
+  background: radial-gradient(1200px 800px at 20% 10%, rgba(124, 58, 237, 0.04), transparent 60%),
+              radial-gradient(900px 700px at 80% 0%, rgba(45, 212, 191, 0.06), transparent 60%),
+              radial-gradient(900px 900px at 50% 90%, rgba(244, 63, 94, 0.04), transparent 60%),
+              #ffffff;
 }
 
 html.dark .app-gradient {
@@ -51,9 +54,26 @@ html.dark .noise-overlay {
   opacity: 0.6;
 }
 
+.grid-overlay {
+  background-image:
+    linear-gradient(to right, rgba(15, 23, 42, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(60% 50% at 50% 35%, rgba(0, 0, 0, 0.9), transparent 80%);
+  -webkit-mask-image: radial-gradient(60% 50% at 50% 35%, rgba(0, 0, 0, 0.9), transparent 80%);
+  opacity: 0.55;
+}
+
+html.dark .grid-overlay {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  opacity: 0.35;
+}
+
 .glass {
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(15, 23, 42, 0.10);
   backdrop-filter: blur(20px);
 }
 
@@ -96,7 +116,7 @@ html.dark .glass {
   border: 1px solid rgba(15, 23, 42, 0.4);
   transform: translate(-50%, -50%);
   transition: transform 0.15s ease, width 0.15s ease, height 0.15s ease, background 0.2s ease;
-  mix-blend-mode: lighten;
+  mix-blend-mode: multiply;
 }
 
 .custom-cursor.active {
@@ -107,6 +127,7 @@ html.dark .glass {
 
 html.dark .custom-cursor {
   border: 1px solid rgba(88, 230, 217, 0.7);
+  mix-blend-mode: screen;
 }
 
 html.dark .custom-cursor.active {
@@ -141,5 +162,15 @@ html.dark .custom-cursor.active {
 @media (max-width: 768px) {
   .custom-cursor {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .marquee-track {
+    animation: none;
   }
 }

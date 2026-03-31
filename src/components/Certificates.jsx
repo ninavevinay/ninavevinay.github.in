@@ -1,7 +1,21 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Section from "./Section";
 import { certificates } from "../data";
+import { FiAward } from "react-icons/fi";
+
+const containerVars = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 },
+  },
+};
+
+const itemVars = {
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15 } },
+};
 
 export default function Certificates() {
   const [showAll, setShowAll] = useState(false);
@@ -9,45 +23,71 @@ export default function Certificates() {
 
   return (
     <Section id="certificates" title="Certificates" subtitle="Credentials">
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {visibleCertificates.map((item, index) => (
-          <motion.div
-            key={item.title}
-            className="glass rounded-2xl p-6 shadow-glass hover:shadow-glow transition"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.4, delay: index * 0.05 }}
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-xs uppercase tracking-[0.2em] text-slate-500 dark:text-white/50">
-                {item.year}
-              </span>
-              <span className="h-2 w-2 rounded-full bg-accent-500" />
-            </div>
-            <h3 className="text-lg font-display text-slate-900 dark:text-white mt-4">
-              {item.title}
-            </h3>
-            <p className="text-sm text-slate-700 dark:text-white/70 mt-2">
-              {item.issuer}
-            </p>
-            <p className="text-sm text-slate-600 dark:text-white/60 mt-3">
-              {item.details}
-            </p>
-          </motion.div>
-        ))}
-      </div>
+      <motion.div 
+        variants={containerVars}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.1 }}
+        className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+      >
+        <AnimatePresence>
+          {visibleCertificates.map((item, index) => (
+            <motion.div
+              key={item.title}
+              variants={itemVars}
+              layout
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.3 }}
+              whileHover={{ y: -6, scale: 1.02 }}
+              className="glass rounded-[32px] p-7 shadow-sm hover:shadow-glow transition-all duration-300 group border border-slate-200/50 dark:border-white/10 hover:border-accent-500/40 relative overflow-hidden bg-white/40 dark:bg-slate-900/40"
+            >
+              {/* Decorative Background */}
+              <div className="absolute -top-10 -right-10 text-slate-100 dark:text-slate-800 opacity-50 group-hover:text-accent-500/10 group-hover:scale-150 transition-all duration-700 pointer-events-none">
+                <FiAward size={120} />
+              </div>
+
+              <div className="flex items-center justify-between relative z-10">
+                <span className="text-xs font-bold uppercase tracking-widest text-slate-600 dark:text-slate-300 bg-slate-200/50 dark:bg-white/10 px-3 py-1.5 rounded-lg">
+                  {item.year}
+                </span>
+                <span className="h-3 w-3 rounded-full bg-accent-500 shadow-[0_0_12px_rgba(88,230,217,0.8)]" />
+              </div>
+              
+              <h3 className="text-xl font-display font-bold text-slate-900 dark:text-white mt-6 leading-tight group-hover:text-accent-500 transition-colors relative z-10">
+                {item.title}
+              </h3>
+              
+              <p className="text-sm font-semibold text-slate-700 dark:text-slate-300 mt-2 relative z-10">
+                {item.issuer}
+              </p>
+              
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-4 leading-relaxed relative z-10 font-body">
+                {item.details}
+              </p>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
+
       {certificates.length > 3 && (
-        <div className="mt-8 flex justify-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-12 flex justify-center"
+        >
           <button
             type="button"
             onClick={() => setShowAll((prev) => !prev)}
-            className="px-6 py-2 rounded-full border border-slate-300/80 dark:border-white/25 text-sm font-medium text-slate-700 dark:text-white/80 hover:bg-slate-100 dark:hover:bg-white/10 transition"
+            className="group relative px-8 py-4 rounded-full glass border border-slate-300 dark:border-white/20 text-sm font-bold text-slate-800 dark:text-white transition-all active:scale-95 shadow-md overflow-hidden"
             data-cursor
           >
-            {showAll ? "Show Less" : "More"}
+            <span className="relative z-10">{showAll ? "Show Less" : `View All Certificates (${certificates.length})`}</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-accent-500/20 to-sky-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
           </button>
-        </div>
+        </motion.div>
       )}
     </Section>
   );

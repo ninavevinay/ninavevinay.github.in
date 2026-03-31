@@ -2,7 +2,7 @@
 // Sign up at https://web3forms.com to get your own access key
 // Replace the access_key below with your personal key from web3forms.com
 
-const WEB3FORMS_ACCESS_KEY =
+const WEB3FORMS_ACCESS_KEY = 
   import.meta.env.VITE_WEB3FORMS_KEY || "YOUR_WEB3FORMS_ACCESS_KEY";
 
 export const submitContactForm = async ({ name, email, message }) => {

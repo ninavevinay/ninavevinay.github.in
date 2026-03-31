@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -20,7 +20,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [theme, setTheme] = useState(() => {
     if (typeof window === "undefined") return "dark";
-    return localStorage.getItem("theme") || "dark";
+    return localStorage.getItem("theme") || "light";
   });
 
   useEffect(() => {

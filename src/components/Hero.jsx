@@ -1,140 +1,164 @@
-import { motion } from "framer-motion";
-import { FiArrowUpRight, FiMail, FiGithub, FiDownload } from "react-icons/fi";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { FiArrowRight, FiMail, FiGithub, FiDownload, FiStar } from "react-icons/fi";
 import { profile, socialLinks } from "../data";
+import { useRef } from "react";
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 32 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
-});
+const containerVars = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVars = {
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+  },
+};
 
 export default function Hero() {
-  return (
-    <section id="home" className="relative overflow-hidden pt-16">
-      <div className="max-w-7xl w-full mx-auto px-6 lg:px-10 py-24 lg:py-32">
-        <div className="grid lg:grid-cols-[1.25fr_0.75fr] gap-16 items-center">
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-          {/* ── Text Content ── */}
-          <div className="space-y-7">
-            <motion.div {...fadeUp(0)}>
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent-500/10 border border-accent-500/20 text-accent-600 dark:text-accent-400 text-xs font-semibold uppercase tracking-widest">
-                <span className="h-1.5 w-1.5 rounded-full bg-accent-500 animate-pulse" />
+  return (
+    <section ref={ref} id="home" className="relative overflow-hidden min-h-screen pt-24 pb-16 flex items-center">
+      <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
+        <div className="absolute top-1/4 left-1/4 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-500/20 blur-[120px] animate-pulseGlow mix-blend-screen" />
+        <div className="absolute bottom-1/4 right-1/4 h-[400px] w-[400px] translate-x-1/2 translate-y-1/2 rounded-full bg-purple-600/20 blur-[100px] animate-pulseGlow mix-blend-screen" />
+      </motion.div>
+
+      <div className="max-w-7xl w-full mx-auto px-6 lg:px-10 relative z-10">
+        <div className="grid lg:grid-cols-[1.3fr_0.7fr] gap-12 lg:gap-20 items-center">
+
+          {/* Main Content */}
+          <motion.div
+            variants={containerVars}
+            initial="hidden"
+            animate="show"
+            className="space-y-8"
+          >
+            <motion.div variants={itemVars}>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-accent-500/30 text-accent-600 dark:text-accent-400 text-xs font-semibold uppercase tracking-widest shadow-glow backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-500"></span>
+                </span>
                 {profile.title}
-              </span>
+              </div>
             </motion.div>
 
             <motion.h1
-              {...fadeUp(0.08)}
-              className="text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.05] tracking-tight"
+              variants={itemVars}
+              className="text-5xl md:text-7xl lg:text-8xl font-display font-extrabold leading-[1.05] tracking-tight"
             >
-              {profile.name.split(" ").map((word, i) => (
-                <span
-                  key={i}
-                  className={
-                    i === 1
-                      ? "bg-gradient-to-r from-accent-500 via-sky-400 to-purple-500 bg-clip-text text-transparent"
-                      : "text-slate-900 dark:text-white"
-                  }
+              Hi, I'm <br />
+              <span className="bg-gradient-to-r from-accent-500 via-sky-400 to-purple-500 bg-clip-text text-transparent transform-gpu hover:scale-[1.02] transition-transform duration-500 inline-block">
+                {profile.name.split(" ")[0]}
+              </span>
+              {" "}
+              <span className="text-slate-900 dark:text-white relative">
+                {profile.name.split(" ")[1]}
+                <motion.span
+                  className="absolute -right-8 -top-8 text-yellow-400"
+                  animate={{ rotate: [0, 15, -15, 0] }}
+                  transition={{ duration: 4, repeat: Infinity }}
                 >
-                  {word}{" "}
-                </span>
-              ))}
+                  <FiStar size={32} className="opacity-0 lg:opacity-100" />
+                </motion.span>
+              </span>
             </motion.h1>
 
             <motion.p
-              {...fadeUp(0.16)}
-              className="text-lg text-slate-600 dark:text-white/65 max-w-xl leading-relaxed"
+              variants={itemVars}
+              className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed font-body"
             >
               {profile.intro}
             </motion.p>
 
-            <motion.div {...fadeUp(0.24)} className="flex flex-wrap gap-3">
-              <a
-                href="#projects"
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-accent-500 to-sky-500 text-white font-semibold text-sm flex items-center gap-2 hover:shadow-glow transition-all hover:scale-105"
-                data-cursor
-              >
-                View Projects <FiArrowUpRight size={16} />
+            <motion.div variants={itemVars} className="flex flex-wrap gap-4 pt-4">
+              <a href="#projects" className="group relative px-8 py-4 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold overflow-hidden transition-all hover:scale-105 shadow-xl ring-2 ring-transparent hover:ring-accent-500/50" data-cursor>
+                <span className="relative z-10 flex items-center gap-2">
+                  Explore Work <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </span>
+                <div className="absolute inset-0 h-full w-full bg-gradient-to-r from-accent-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"></div>
               </a>
-              <a
-                href={profile.resumeUrl}
-                className="px-6 py-3 rounded-full glass border border-slate-200 dark:border-white/15 text-slate-800 dark:text-white/80 font-semibold text-sm flex items-center gap-2 hover:border-slate-300 dark:hover:border-white/40 transition-all hover:scale-105"
-                data-cursor
-                target="_blank"
-                rel="noreferrer"
-              >
-                <FiDownload size={14} /> Resume
-              </a>
-              <a
-                href="#contact"
-                className="px-6 py-3 rounded-full glass border border-slate-200 dark:border-white/15 text-slate-800 dark:text-white/80 font-semibold text-sm flex items-center gap-2 hover:border-slate-300 dark:hover:border-white/40 transition-all hover:scale-105"
-                data-cursor
-              >
-                <FiMail size={14} /> Contact
+
+              <a href={profile.resumeUrl} download="Vinay_Ninave_Resume.pdf" target="_blank" rel="noreferrer" className="px-8 py-4 rounded-full glass border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-semibold flex items-center gap-2 hover:bg-slate-100 dark:hover:bg-white/5 transition-all hover:scale-105 shadow-lg" data-cursor>
+                <FiDownload /> Resume
               </a>
             </motion.div>
 
-            <motion.div
-              {...fadeUp(0.32)}
-              className="flex items-center gap-5 pt-2"
-            >
-              {socialLinks.map((s) => {
+            <motion.div variants={itemVars} className="flex items-center gap-6 pt-8">
+              {socialLinks.map((s, i) => {
                 const Icon = s.icon;
                 return (
-                  <a
+                  <motion.a
                     key={s.name}
                     href={s.name === "Email" ? `mailto:${profile.email}` : s.href}
                     target={s.name !== "Email" ? "_blank" : undefined}
                     rel="noreferrer"
-                    aria-label={s.name}
-                    className="text-slate-500 dark:text-white/40 hover:text-slate-900 dark:hover:text-white transition"
+                    className="relative group p-3 rounded-full glass hover:bg-accent-500/10 transition-colors border border-transparent hover:border-accent-500/30"
+                    whileHover={{ scale: 1.15, rotate: 5 }}
+                    whileTap={{ scale: 0.95 }}
                     data-cursor
                   >
-                    <Icon size={20} />
-                  </a>
+                    <Icon size={22} className="text-slate-600 dark:text-slate-300 group-hover:text-accent-500 transition-colors" />
+                  </motion.a>
                 );
               })}
-              <span className="h-4 w-px bg-slate-300 dark:bg-white/10" />
-              <span className="text-sm text-slate-500 dark:text-white/40">
-                {profile.location}, India
-              </span>
             </motion.div>
-          </div>
+          </motion.div>
 
-          {/* ── Profile Image ── */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.88 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="relative hidden lg:block"
+          {/* Profile Image / 3D Element */}
+          <motion.div 
+            initial={{ opacity: 0, x: 50, rotateY: -15 }}
+            animate={{ opacity: 1, x: 0, rotateY: 0 }}
+            transition={{ duration: 1, delay: 0.4, type: "spring", stiffness: 50 }}
+            className="flex justify-center relative perspective-1000 mt-12 lg:mt-0"
           >
-            <div className="absolute -top-12 -left-12 h-48 w-48 rounded-full bg-accent-500/20 blur-3xl animate-pulseGlow" />
-            <div className="absolute -bottom-8 -right-8 h-56 w-56 rounded-full bg-purple-500/20 blur-3xl animate-pulseGlow" />
-            <div className="glass gradient-border rounded-[36px] p-3 shadow-glass relative">
+            <motion.div 
+              whileHover={{ rotateX: 5, rotateY: -5, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="relative w-full max-w-[280px] sm:max-w-sm lg:max-w-md aspect-[4/5] rounded-[40px] p-2 glass gradient-border shadow-2xl"
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-tr from-accent-500/20 to-purple-500/20 rounded-[40px] blur-xl -z-10 group-hover:opacity-100 transition-opacity" />
               <img
                 src="/profile.jpeg"
                 alt={profile.name}
-                className="rounded-[30px] w-full aspect-[4/5] object-cover animate-float"
+                className="rounded-[32px] w-full h-full object-cover shadow-inner"
               />
-              {/* Floating badge */}
-              <div className="absolute -bottom-4 -left-4 glass rounded-2xl px-4 py-2.5 shadow-glass flex items-center gap-2">
-                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-xs font-semibold text-slate-700 dark:text-white/80">
-                  Open to work
-                </span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </div>
 
-      {/* ── Decorative gradient orb ── */}
-      <div className="pointer-events-none absolute inset-0 opacity-50">
-        <motion.div
-          className="absolute -top-40 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-gradient-to-br from-accent-500/25 via-sky-400/10 to-transparent blur-3xl"
-          animate={{ y: [0, -18, 0] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-        />
+
+
+              {/* Floating Element 1*/}
+              <motion.div
+                animate={{ y: [10, -10, 10] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                className="absolute -right-8 bottom-24 glass px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3 border border-white/20"
+                style={{ translateZ: 80 }}
+              >
+                <div className="relative flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                </div>
+                <span className="text-sm font-semibold text-slate-800 dark:text-white/90">Available for Work</span>
+              </motion.div>
+
+            </motion.div>
+          </motion.div>
+
+        </div>
       </div>
     </section>
   );

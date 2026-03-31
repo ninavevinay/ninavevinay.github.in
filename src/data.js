@@ -7,7 +7,7 @@ export const profile = {
     "Full Stack Developer building scalable web applications using React.js and FastAPI. Focused on Cybersecurity practices to develop secure and resilient systems.Exploring AI-driven solutions to create intelligent, modern applications.",
   location: "Nagpur",
   email: "vinayninave27@email.com",
-  resumeUrl: "/resume.pdf"
+  resumeUrl: "/Resume.pdf"
 };
 
 export const skills = [
