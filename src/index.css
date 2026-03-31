@@ -15,14 +15,14 @@ html.dark {
 }
 
 body {
-  background: #ffffff;
+  background: #73a1cf;
   text-rendering: optimizeLegibility;
   color: #0f172a;
 }
 
 html.dark body {
   background: #0b0d12;
-  color: #ffffff;
+  color: #9a8de6;
 }
 
 ::selection {
@@ -31,17 +31,17 @@ html.dark body {
 }
 
 .app-gradient {
-  background: radial-gradient(1200px 800px at 20% 10%, rgba(124, 58, 237, 0.04), transparent 60%),
-              radial-gradient(900px 700px at 80% 0%, rgba(45, 212, 191, 0.06), transparent 60%),
-              radial-gradient(900px 900px at 50% 90%, rgba(244, 63, 94, 0.04), transparent 60%),
-              #ffffff;
+  background: radial-gradient(1200px 800px at 20% 10%, rgba(124, 58, 237, 0.12), transparent 60%),
+    radial-gradient(900px 700px at 80% 0%, rgba(45, 212, 191, 0.15), transparent 60%),
+    radial-gradient(900px 900px at 50% 90%, rgba(244, 63, 94, 0.12), transparent 60%),
+    #78a4cf;
 }
 
 html.dark .app-gradient {
   background: radial-gradient(1200px 800px at 20% 10%, rgba(88, 230, 217, 0.12), transparent 60%),
-              radial-gradient(900px 700px at 80% 0%, rgba(138, 88, 255, 0.15), transparent 60%),
-              radial-gradient(900px 900px at 50% 90%, rgba(27, 216, 145, 0.12), transparent 60%),
-              #0b0d12;
+    radial-gradient(900px 700px at 80% 0%, rgba(138, 88, 255, 0.15), transparent 60%),
+    radial-gradient(900px 900px at 50% 90%, rgba(27, 216, 145, 0.12), transparent 60%),
+    #0b0d12;
 }
 
 .noise-overlay {
@@ -154,6 +154,7 @@ html.dark .custom-cursor.active {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-50%);
   }
